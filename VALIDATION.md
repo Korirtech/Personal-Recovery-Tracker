@@ -35,3 +35,9 @@ The analytics dashboard now uses staged skeleton animations with delayed card pu
 ## Pro chart export enhancement
 
 The Analytics page now presents CSV and PDF export controls only when the authenticated analytics response reports the Pro plan. Free users see a clear locked capability state. Server procedures re-check Pro entitlement and scope queries to the authenticated user’s 30-day local-date entries. CSV output and escaping, PDF `%PDF-` output, unauthenticated rejection, and UI export controls are covered by automated tests. The production build passed, and the locked Free-state analytics view was visually verified at the desktop preview width.
+
+## Playwright end-to-end coverage
+
+The new Playwright suite runs two authenticated browser scenarios with isolated request fixtures: the six-step check-in flow with duplicate-day editing, and Pro CSV/PDF chart downloads with the Free-plan lock state. The suite passed with **2 tests passed** using the installed system Chromium. It intentionally does not connect to OAuth or the production database; backend authorization remains covered by the existing Vitest procedure tests. See `E2E.md` for commands and extension guidance.
+
+The Playwright suite was expanded and rerun successfully with **3 tests passed**. It now asserts the first required check-in step cannot continue before a selection, verifies visible step progression, covers save/reload/edit behavior for an existing local-day entry, and simulates an export-provider failure to verify the user-facing alert. The Pro scenario continues to verify CSV and PDF downloads plus the Free locked state. After these changes, `pnpm check`, `pnpm test` (**21 unit/integration tests**), and `pnpm build` also passed.

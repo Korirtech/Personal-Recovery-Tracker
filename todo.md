@@ -45,3 +45,11 @@
 - [x] Add Pro export controls, locked Free state, loading state, and accessible download feedback to analytics.
 - [x] Add export authorization, CSV escaping, PDF output, and analytics UI regression coverage.
 - [x] Run type checks, tests, production build, visual verification, and save the export checkpoint.
+
+# Playwright E2E enhancement
+
+- [x] Define isolated Playwright browser setup, test-only authentication strategy, and fixture boundaries.
+- [x] Add an end-to-end daily check-in flow covering validation, progress, submission, duplicate-day handling, and edit behavior.
+- [x] Add an end-to-end Pro export flow covering entitlement UI, CSV download, PDF download, and download failure handling.
+- [x] Add Playwright scripts, browser configuration, CI-friendly startup, and test documentation without exposing real user data.
+- [x] Run Playwright plus the existing type, unit, and production checks; document environment limitations and checkpoint the result.
