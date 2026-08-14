@@ -49,3 +49,7 @@ The workflow was triggered manually for commit `6cbee29709495f6955394136fee0cf7e
 ## Render deployment manifest
 
 `render.yaml` was validated with Prettier’s YAML parser, and the project passed `pnpm check`, all 21 Vitest tests, and `pnpm build`. The Blueprint was committed and pushed to `main` in commit `31f366fefa4c69f28437068ad5adeb7474670c0e`. Render still requires the documented `sync: false` variables, a compatible managed MySQL/TiDB `DATABASE_URL`, and production Manus OAuth callback configuration before a live deployment.
+
+## Analytics dark mode
+
+The Analytics route now exposes an accessible `Dark mode`/`Light mode` toggle backed by the existing switchable ThemeProvider and browser local storage. Cards, chart axes, tooltips, Pro lock state, export errors, loading skeletons, refresh status, and empty states include dark-mode contrast treatments. The analytics screenshot review confirmed the toggle is visible in the desktop dashboard header and the light empty-data state remains readable; the theme regression assertion covers the dark-mode source contract. TypeScript, 21 Vitest tests, and the production build passed after the change.

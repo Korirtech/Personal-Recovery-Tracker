@@ -16,5 +16,10 @@ describe("analytics feedback states", () => {
     expect(source).toContain("chartCsv");
     expect(source).toContain("chartPdf");
     expect(source).toContain("Preparing…");
+    expect(source).toContain("useTheme");
+    expect(source).toContain('aria-pressed={theme === "dark"}');
+    expect(source).toContain("Switch to dark mode");
+    expect(source).toContain("dark:bg-slate-900");
+    expect(source).toContain('theme === "dark" ? "#334155"');
   });
 });

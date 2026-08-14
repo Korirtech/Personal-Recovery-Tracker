@@ -66,3 +66,10 @@
 - [x] Define the Render service, health check, build/start commands, and required environment-variable contract.
 - [x] Add render.yaml and document Render database, OAuth, LLM, and secret configuration steps.
 - [x] Validate render.yaml syntax and the production build, then checkpoint the deployment manifest.
+
+# Analytics dark mode enhancement
+
+- [x] Add a persistent dark-mode toggle to the analytics dashboard with an accessible label and local preference storage.
+- [x] Theme analytics cards, chart axes/tooltips, loading skeletons, empty states, and errors for readable dark-mode contrast.
+- [x] Add dark-mode UI regression coverage and run type, unit, build, and visual checks.
+- [ ] Commit all dark-mode changes and verify the repository commit.

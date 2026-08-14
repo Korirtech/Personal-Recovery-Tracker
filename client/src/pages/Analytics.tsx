@@ -17,12 +17,15 @@ import {
   FileText,
   Loader2,
   LockKeyhole,
+  Moon,
+  Sun,
   RefreshCw,
   TrendingDown,
   TrendingUp,
   Trophy,
 } from "lucide-react";
 import { useState } from "react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 type ExportPayload = { fileName: string; mimeType: string; base64: string };
 
@@ -55,19 +58,19 @@ function AnalyticsSkeleton() {
       aria-busy="true"
       aria-label="Loading analytics"
     >
-      <div className="h-3 w-28 animate-pulse rounded-full bg-blue-100" />
-      <div className="h-10 w-56 animate-pulse rounded-xl bg-slate-200" />
-      <div className="h-5 w-full max-w-2xl animate-pulse rounded bg-slate-100" />
+      <div className="h-3 w-28 animate-pulse rounded-full bg-blue-100 dark:bg-blue-950/50" />
+      <div className="h-10 w-56 animate-pulse rounded-xl bg-slate-200 dark:bg-slate-700" />
+      <div className="h-5 w-full max-w-2xl animate-pulse rounded bg-slate-100 dark:bg-slate-800" />
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
         {Array.from({ length: 5 }, (_, index) => (
           <div
             key={index}
-            className="h-28 animate-pulse rounded-2xl border border-slate-100 bg-white shadow-sm"
+            className="h-28 animate-pulse rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm"
             style={{ animationDelay: `${index * 90}ms` }}
           />
         ))}
       </div>
-      <div className="h-96 animate-pulse rounded-[2rem] border border-slate-100 bg-white shadow-sm" />
+      <div className="h-96 animate-pulse rounded-[2rem] border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm" />
     </div>
   );
 }
@@ -81,19 +84,19 @@ function AnalyticsError({
 }) {
   return (
     <section className="mx-auto max-w-2xl py-10 sm:py-16">
-      <div className="rounded-[2rem] border border-red-200 bg-red-50 p-7 text-center shadow-sm sm:p-10">
-        <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-white text-red-700 shadow-sm">
+      <div className="rounded-[2rem] border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950/40 p-7 text-center shadow-sm sm:p-10">
+        <div className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-white dark:bg-slate-900 text-red-700 dark:text-red-300 shadow-sm">
           <AlertTriangle className="h-6 w-6" />
         </div>
-        <h1 className="mt-5 text-2xl font-semibold tracking-tight text-red-950">
+        <h1 className="mt-5 text-2xl font-semibold tracking-tight text-red-950 dark:text-red-100">
           Analytics are taking a pause.
         </h1>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-red-800">
+        <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-red-800 dark:text-red-200">
           We couldn’t retrieve your private analytics right now. Your saved
           check-ins are not affected.
         </p>
         <Button
-          className="mt-7 border-red-200 bg-white text-red-800 hover:bg-red-100"
+          className="mt-7 border-red-200 dark:border-red-900 bg-white dark:bg-slate-900 text-red-800 dark:text-red-200 hover:bg-red-100"
           variant="outline"
           onClick={onRetry}
           disabled={retrying}
@@ -111,6 +114,7 @@ function AnalyticsError({
 }
 
 export default function Analytics() {
+  const { theme, toggleTheme } = useTheme();
   const analyticsQuery = trpc.recovery.analytics.get.useQuery(undefined, {
     placeholderData: previous => previous,
   });
@@ -188,21 +192,43 @@ export default function Analytics() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
             Your patterns
           </p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-950 dark:text-slate-100 sm:text-4xl">
             30-day overview
           </h1>
         </div>
-        {isRefreshing ? (
-          <p
-            role="status"
-            className="mt-1 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700"
+        <div className="flex items-center gap-2">
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            aria-pressed={theme === "dark"}
+            aria-label={
+              theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+            }
+            onClick={() => toggleTheme?.()}
+            className="gap-2 border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
           >
-            <Loader2 className="h-3.5 w-3.5 animate-spin" />
-            Updating
-          </p>
-        ) : null}
+            {theme === "dark" ? (
+              <Sun className="h-4 w-4" />
+            ) : (
+              <Moon className="h-4 w-4" />
+            )}
+            <span className="hidden sm:inline">
+              {theme === "dark" ? "Light mode" : "Dark mode"}
+            </span>
+          </Button>
+          {isRefreshing ? (
+            <p
+              role="status"
+              className="mt-1 inline-flex items-center gap-2 rounded-full bg-blue-50 dark:bg-blue-950/40 px-3 py-1.5 text-xs font-medium text-blue-700 dark:text-blue-300"
+            >
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+              Updating
+            </p>
+          ) : null}
+        </div>
       </div>
-      <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+      <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-300">
         A private summary of the entries you logged during the last 30 local
         days. Missing days remain missing.
       </p>
@@ -210,30 +236,32 @@ export default function Analytics() {
         {cards.map(card => (
           <article
             key={card.label}
-            className={`rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-opacity duration-200 ${isRefreshing ? "opacity-70" : "opacity-100"}`}
+            className={`rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 shadow-sm transition-opacity duration-200 ${isRefreshing ? "opacity-70" : "opacity-100"}`}
           >
             <div className="flex items-center justify-between">
-              <p className="text-xs font-medium text-slate-500">{card.label}</p>
-              <card.icon className="h-4 w-4 text-blue-700" />
+              <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                {card.label}
+              </p>
+              <card.icon className="h-4 w-4 text-blue-700 dark:text-blue-300" />
             </div>
-            <p className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
+            <p className="mt-3 text-2xl font-semibold tracking-tight text-slate-950 dark:text-slate-100">
               {card.value}
             </p>
-            <p className="mt-1 text-[11px] leading-4 text-slate-500">
+            <p className="mt-1 text-[11px] leading-4 text-slate-500 dark:text-slate-400">
               {card.caption}
             </p>
           </article>
         ))}
       </div>
       <article
-        className={`mt-5 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm transition-opacity duration-200 sm:p-8 ${isRefreshing ? "opacity-70" : "opacity-100"}`}
+        className={`mt-5 rounded-[2rem] border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6 shadow-sm transition-opacity duration-200 sm:p-8 ${isRefreshing ? "opacity-70" : "opacity-100"}`}
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h2 className="text-lg font-semibold tracking-tight text-slate-950">
+            <h2 className="text-lg font-semibold tracking-tight text-slate-950 dark:text-slate-100">
               Recovery indicator trend
             </h2>
-            <p className="mt-1 text-sm text-slate-600">
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
               Scores from your actual check-ins over this 30-day window.
             </p>
           </div>
@@ -242,7 +270,7 @@ export default function Analytics() {
               className="flex flex-wrap items-center gap-2"
               aria-label="Export chart data"
             >
-              <span className="mr-1 inline-flex items-center gap-1.5 text-xs font-medium text-slate-500">
+              <span className="mr-1 inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400">
                 <Download className="h-3.5 w-3.5" />
                 Export
               </span>
@@ -266,18 +294,18 @@ export default function Analytics() {
               </Button>
             </div>
           ) : (
-            <div className="inline-flex items-center gap-2 rounded-xl border border-blue-100 bg-blue-50 px-3 py-2 text-xs font-medium text-blue-800">
+            <div className="inline-flex items-center gap-2 rounded-xl border border-blue-100 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/40 px-3 py-2 text-xs font-medium text-blue-800 dark:text-blue-200">
               <LockKeyhole className="h-3.5 w-3.5" />
               Pro export: CSV and PDF
             </div>
           )}
         </div>
         {overview.previousPeriodDifference === null ? (
-          <p className="mt-4 text-sm font-medium text-slate-600">
+          <p className="mt-4 text-sm font-medium text-slate-600 dark:text-slate-300">
             No prior-period comparison yet
           </p>
         ) : (
-          <p className="mt-4 text-sm font-medium text-slate-600">
+          <p className="mt-4 text-sm font-medium text-slate-600 dark:text-slate-300">
             {overview.previousPeriodDifference >= 0 ? "+" : ""}
             {overview.previousPeriodDifference} vs. previous period
           </p>
@@ -309,26 +337,40 @@ export default function Analytics() {
                     />
                   </linearGradient>
                 </defs>
-                <CartesianGrid vertical={false} stroke="#e2e8f0" />
+                <CartesianGrid
+                  vertical={false}
+                  stroke={theme === "dark" ? "#334155" : "#e2e8f0"}
+                />
                 <XAxis
                   dataKey="label"
                   axisLine={false}
                   tickLine={false}
                   minTickGap={24}
-                  tick={{ fill: "#64748b", fontSize: 12 }}
+                  tick={{
+                    fill: theme === "dark" ? "#94a3b8" : "#64748b",
+                    fontSize: 12,
+                  }}
                 />
                 <YAxis
                   domain={[0, 100]}
                   ticks={[0, 25, 50, 75, 100]}
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: "#64748b", fontSize: 12 }}
+                  tick={{
+                    fill: theme === "dark" ? "#94a3b8" : "#64748b",
+                    fontSize: 12,
+                  }}
                 />
                 <Tooltip
                   contentStyle={{
                     borderRadius: 12,
-                    borderColor: "#e2e8f0",
-                    boxShadow: "0 8px 20px rgba(15, 23, 42, 0.08)",
+                    borderColor: theme === "dark" ? "#475569" : "#e2e8f0",
+                    background: theme === "dark" ? "#0f172a" : "#ffffff",
+                    color: theme === "dark" ? "#e2e8f0" : "#0f172a",
+                    boxShadow:
+                      theme === "dark"
+                        ? "0 8px 20px rgba(0, 0, 0, 0.35)"
+                        : "0 8px 20px rgba(15, 23, 42, 0.08)",
                   }}
                   formatter={(value: number) => [
                     `${value}/100`,
@@ -346,20 +388,23 @@ export default function Analytics() {
             </ResponsiveContainer>
           </div>
         ) : (
-          <div className="mt-7 grid min-h-64 place-items-center rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-6 text-center">
+          <div className="mt-7 grid min-h-64 place-items-center rounded-2xl border border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-6 text-center">
             <div>
               <BarChart3 className="mx-auto h-7 w-7 text-slate-400" />
-              <p className="mt-3 font-medium text-slate-800">
+              <p className="mt-3 font-medium text-slate-800 dark:text-slate-200">
                 Complete more check-ins to build your longer-term trend.
               </p>
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Analytics will appear only when your own entries support them.
               </p>
             </div>
           </div>
         )}
         {exportError ? (
-          <p role="alert" className="mt-4 text-sm text-red-700">
+          <p
+            role="alert"
+            className="mt-4 text-sm text-red-700 dark:text-red-300"
+          >
             We couldn’t prepare that export. Your data is unchanged; please try
             again.
           </p>
@@ -368,7 +413,7 @@ export default function Analytics() {
       {analyticsQuery.isError ? (
         <p
           role="alert"
-          className="mt-4 inline-flex items-center gap-2 text-xs text-amber-800"
+          className="mt-4 inline-flex items-center gap-2 text-xs text-amber-800 dark:text-amber-200"
         >
           <AlertTriangle className="h-3.5 w-3.5" />
           We couldn’t refresh the latest analytics; showing the last available
