@@ -1,0 +1,32 @@
+# RecoveryLog Project TODO
+
+- [x] Define the application information architecture, route map, shared domain types, and privacy boundaries.
+- [x] Design and apply a calm, premium, mobile-first wellness visual system with accessible color and typography tokens.
+- [x] Create database schema and migration for profiles, daily_checkins, insights, notification_preferences, and subscriptions with constraints, indexes, and ownership protection.
+- [x] Add database query helpers and typed server contracts for all recovery tracking features.
+- [x] Build the public marketing landing page with hero, how-it-works, features, AI safety section, pricing, FAQ, and footer.
+- [x] Add metadata, Open Graph tags, semantic document structure, robots directives, and favicon assets.
+- [x] Integrate Manus OAuth account access, persistent session handling, protected application routes, and authenticated loading/error states.
+- [x] Build editable profile and settings flows for display name, read-only Manus account email, IANA timezone, reminder time, and notification preference.
+- [x] Implement a timezone-aware, step-by-step daily check-in wizard with accessible controls, progress, back navigation, validation, draft preservation, and safe retry behavior.
+- [x] Enforce one editable check-in per local calendar day and provide clear duplicate-entry handling.
+- [x] Implement a single reusable deterministic Recovery Score service with weighted scoring, reverse scoring, clamping, categories, and safe non-medical language.
+- [x] Build the protected dashboard with personalized greeting, score visual, metric breakdown, contextual non-medical suggestion, and seven-day trend state handling.
+- [x] Create check-in history with calendar navigation, detail viewing, editing, deletion, and intentional empty/loading/error states.
+- [x] Build 30-day analytics with aggregate metrics, check-in streak, comparisons when sufficient data exists, and accessible responsive charts.
+- [x] Implement tier and entitlement data contracts for Free and Pro capabilities without processing payments.
+- [x] Implement deterministic pattern analysis using only necessary, private check-in data and a seven-check-in minimum threshold.
+- [x] Integrate server-side LLM insight generation with structured Zod validation, non-medical guardrails, database caching, and graceful fallback states.
+- [x] Display AI safety disclaimers anywhere generated insights appear and prevent unsafe or unvalidated output from rendering.
+- [x] Add a timezone-aware daily reminder architecture with an enabled state, local-time scheduling strategy, and safe copy.
+- [x] Create account deletion, data deletion, privacy messaging, and future data-export architecture.
+- [x] Add a typed, provider-independent data-export boundary for a future Pro export workflow.
+- [x] Complete the delete-data success state and redirect after the protected server deletion completes.
+- [x] Add unit tests for the scoring engine, date and duplicate-entry logic, analytics calculations, entitlement checks, and insight validation.
+- [x] Add integration and UI tests for protected access, check-in creation and editing, dashboard rendering, validation, errors, and empty states.
+- [ ] Perform a live keyboard-navigation review across supported device sizes after publishing.
+- [x] Run type checking, linting, tests, production build, and visual verification; resolve reported errors.
+- [x] Document architecture, database setup, configuration, security considerations, known limitations, and publishing steps in README and deployment notes.
+- [ ] Capture and document a live keyboard-navigation pass after publishing; responsive and code-level accessibility evidence is complete.
+- [x] Add and run a non-destructive lint-equivalent validation step in the project quality gate.
+- [x] Add a managed database and configuration setup section to the production documentation without creating a local environment file.
