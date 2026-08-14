@@ -23,3 +23,7 @@ At the 768px breakpoint, the landing page maintained readable hierarchy, the che
 At 1440px, the landing page retained intentional whitespace and balanced two-column sections. The history and analytics empty states remained legible at the wider measure and clearly explained that RecoveryLog does not fabricate missing wellness data.
 
 The source-level review and live-browser QA runbook are recorded in `ACCESSIBILITY.md`. The final production-browser keyboard pass is intentionally a release checklist item for the publisher, because this managed preview does not expose keyboard-event automation.
+
+## GitHub synchronization
+
+The finalized source was synchronized to `https://github.com/Korirtech/Personal-Recovery-Tracker` on the `main` branch. The verified remote head is `ad9d2a6dae2d51b0c1cb976821c495cac6615674` (`chore: record GitHub synchronization`). Remote root verification confirmed `README.md`, `ARCHITECTURE.md`, `SECURITY.md`, `DEPLOYMENT.md`, `ACCESSIBILITY.md`, `todo.md`, and the `client`, `server`, `drizzle`, and `shared` project directories.
