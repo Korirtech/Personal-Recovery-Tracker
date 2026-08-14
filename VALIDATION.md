@@ -53,3 +53,15 @@ The workflow was triggered manually for commit `6cbee29709495f6955394136fee0cf7e
 ## Analytics dark mode
 
 The Analytics route now exposes an accessible `Dark mode`/`Light mode` toggle backed by the existing switchable ThemeProvider and browser local storage. Cards, chart axes, tooltips, Pro lock state, export errors, loading skeletons, refresh status, and empty states include dark-mode contrast treatments. The analytics screenshot review confirmed the toggle is visible in the desktop dashboard header and the light empty-data state remains readable; the theme regression assertion covers the dark-mode source contract. TypeScript, 21 Vitest tests, and the production build passed after the change.
+
+## Render failure investigation
+
+The live Render URL is currently showing Render’s **Application loading** screen with a service wake-up sequence that reached environment-variable injection but has not yet returned the RecoveryLog app. The local production reproduction passed the build and started `dist/index.js` successfully; port 3000 was already occupied locally, so it selected port 3001. This indicates the failure is not reproduced by the application start command locally; the next diagnostic target is the Render service runtime/build log or its injected environment configuration.
+
+## Render remediation
+
+The live service remained on Render’s Application Loading page and a direct HTTP probe timed out without response. Local production validation showed the built server starts successfully with Render-style `PORT=10000` and serves `/` with HTTP 200. The server startup was hardened to bind explicitly to `0.0.0.0`, preventing container health checks from being affected by host-interface binding. TypeScript, all 21 tests, the production build, and the Render-style startup check passed; the startup command was intentionally terminated after confirming the listening state.
+
+## Corepack build-failure fix
+
+The confirmed Render failure was `EROFS: read-only file system, unlink '/usr/bin/pnpm'`, caused by `corepack enable` in `render.yaml`. The Blueprint now uses `pnpm install --frozen-lockfile && pnpm build` directly. The corrected command passed locally, along with YAML formatting, TypeScript, all 21 tests, and the production build. Render must redeploy the corrected commit before the live service can be rechecked.

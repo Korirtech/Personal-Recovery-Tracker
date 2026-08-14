@@ -73,3 +73,15 @@
 - [x] Theme analytics cards, chart axes/tooltips, loading skeletons, empty states, and errors for readable dark-mode contrast.
 - [x] Add dark-mode UI regression coverage and run type, unit, build, and visual checks.
 - [x] Commit all dark-mode changes and verify the repository commit.
+
+# Render deployment failure remediation
+
+- [x] Inspect Render deployment logs, commit 8cbe27b contents, and local production state.
+- [x] Apply the smallest safe fix for the failed render and add regression coverage if needed.
+- [ ] Run production validation, commit the correction, and verify deployment readiness.
+
+# Render Corepack build-failure remediation
+
+- [x] Confirm the read-only `/usr/bin/pnpm` failure against render.yaml and the repository package-manager contract.
+- [x] Remove `corepack enable` from the Render build command and document the corrected setup.
+- [ ] Validate, commit, push, and record the corrected Render deployment handoff.

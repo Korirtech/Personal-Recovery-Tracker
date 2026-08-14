@@ -27,3 +27,7 @@ The repository now includes `render.yaml` for the requested Render deployment pa
 After creating the service from the Blueprint, provide the `sync: false` variables in the Render dashboard. Required values include `DATABASE_URL`, `JWT_SECRET`, `VITE_APP_ID`, `OAUTH_SERVER_URL`, `VITE_OAUTH_PORTAL_URL`, `OWNER_OPEN_ID`, `BUILT_IN_FORGE_API_URL`, `BUILT_IN_FORGE_API_KEY`, `VITE_FRONTEND_FORGE_API_URL`, `VITE_FRONTEND_FORGE_API_KEY`, `VITE_ANALYTICS_ENDPOINT`, `VITE_ANALYTICS_WEBSITE_ID`, and `VITE_APP_LOGO`. Never commit these values to `render.yaml` or an `.env` file.
 
 The Render service needs a compatible managed MySQL/TiDB connection in `DATABASE_URL`; `render.yaml` intentionally does not provision or migrate a database. Apply reviewed Drizzle migrations through the database workflow before relying on the service. Update the Manus OAuth application’s production callback and allowed-origin configuration to the final Render service URL before testing sign-in. The managed Manus hosting path remains the default and does not require this Blueprint.
+
+## Render Corepack compatibility
+
+Render’s failed build reported `EROFS: read-only file system, unlink '/usr/bin/pnpm'` while executing `corepack enable`. The Blueprint no longer runs Corepack; it uses `pnpm install --frozen-lockfile && pnpm build` directly, matching the repository’s declared pnpm package manager and avoiding writes to the platform’s read-only system binary path.
