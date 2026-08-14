@@ -21,3 +21,5 @@ The interface was reviewed at 375px mobile and desktop widths; additional tablet
 At the 768px breakpoint, the landing page maintained readable hierarchy, the check-in preserved its centered single-question flow with clear back/continue controls, and profile sections stayed within a single-column readable measure. At 1024px, the marketing two-column composition, dashboard empty state, and check-in control spacing remained intact with no horizontal overflow observed.
 
 At 1440px, the landing page retained intentional whitespace and balanced two-column sections. The history and analytics empty states remained legible at the wider measure and clearly explained that RecoveryLog does not fabricate missing wellness data.
+
+The source-level review and live-browser QA runbook are recorded in `ACCESSIBILITY.md`. The final production-browser keyboard pass is intentionally a release checklist item for the publisher, because this managed preview does not expose keyboard-event automation.

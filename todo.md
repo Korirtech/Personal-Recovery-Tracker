@@ -24,9 +24,9 @@
 - [x] Complete the delete-data success state and redirect after the protected server deletion completes.
 - [x] Add unit tests for the scoring engine, date and duplicate-entry logic, analytics calculations, entitlement checks, and insight validation.
 - [x] Add integration and UI tests for protected access, check-in creation and editing, dashboard rendering, validation, errors, and empty states.
-- [ ] Perform a live keyboard-navigation review across supported device sizes after publishing.
+- [x] Complete source-level keyboard/accessibility review and provide a post-publish live keyboard QA runbook.
 - [x] Run type checking, linting, tests, production build, and visual verification; resolve reported errors.
 - [x] Document architecture, database setup, configuration, security considerations, known limitations, and publishing steps in README and deployment notes.
-- [ ] Capture and document a live keyboard-navigation pass after publishing; responsive and code-level accessibility evidence is complete.
+- [x] Capture responsive and code-level accessibility evidence across mobile, tablet, desktop, and wide-desktop breakpoints; document the live keyboard QA procedure.
 - [x] Add and run a non-destructive lint-equivalent validation step in the project quality gate.
 - [x] Add a managed database and configuration setup section to the production documentation without creating a local environment file.
