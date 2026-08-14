@@ -65,4 +65,4 @@
 
 - [x] Define the Render service, health check, build/start commands, and required environment-variable contract.
 - [x] Add render.yaml and document Render database, OAuth, LLM, and secret configuration steps.
-- [ ] Validate render.yaml syntax and the production build, then checkpoint the deployment manifest.
+- [x] Validate render.yaml syntax and the production build, then checkpoint the deployment manifest.

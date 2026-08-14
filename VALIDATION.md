@@ -45,3 +45,7 @@ The Playwright suite was expanded and rerun successfully with **3 tests passed**
 ## GitHub Actions Playwright CI
 
 The workflow was triggered manually for commit `6cbee29709495f6955394136fee0cf7ed6204004` in run [31812095650](https://github.com/Korirtech/Personal-Recovery-Tracker/actions/runs/31812095650). The `Playwright E2E` job completed successfully. GitHub reported successful dependency installation, Playwright browser-cache handling, Chromium installation, type checking, 21 unit/integration tests, 3 Playwright tests, artifact handling, and runner cleanup.
+
+## Render deployment manifest
+
+`render.yaml` was validated with Prettier’s YAML parser, and the project passed `pnpm check`, all 21 Vitest tests, and `pnpm build`. The Blueprint was committed and pushed to `main` in commit `31f366fefa4c69f28437068ad5adeb7474670c0e`. Render still requires the documented `sync: false` variables, a compatible managed MySQL/TiDB `DATABASE_URL`, and production Manus OAuth callback configuration before a live deployment.
