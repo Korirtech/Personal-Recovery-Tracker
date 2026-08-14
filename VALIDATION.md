@@ -65,3 +65,5 @@ The live service remained on Render’s Application Loading page and a direct HT
 ## Corepack build-failure fix
 
 The confirmed Render failure was `EROFS: read-only file system, unlink '/usr/bin/pnpm'`, caused by `corepack enable` in `render.yaml`. The Blueprint now uses `pnpm install --frozen-lockfile && pnpm build` directly. The corrected command passed locally, along with YAML formatting, TypeScript, all 21 tests, and the production build. Render must redeploy the corrected commit before the live service can be rechecked.
+
+After pushing `bf200aa`, a 60-second Render auto-redeploy probe still timed out with no HTTP headers. The corrected repository commit is present on `main`, but live deployment readiness cannot be claimed until Render completes or exposes the new deploy/runtime result. The exact confirmed build failure remains the Corepack `/usr/bin/pnpm` read-only unlink error; the Blueprint no longer executes that operation.
