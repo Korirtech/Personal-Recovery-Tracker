@@ -72,4 +72,4 @@
 - [x] Add a persistent dark-mode toggle to the analytics dashboard with an accessible label and local preference storage.
 - [x] Theme analytics cards, chart axes/tooltips, loading skeletons, empty states, and errors for readable dark-mode contrast.
 - [x] Add dark-mode UI regression coverage and run type, unit, build, and visual checks.
-- [ ] Commit all dark-mode changes and verify the repository commit.
+- [x] Commit all dark-mode changes and verify the repository commit.
