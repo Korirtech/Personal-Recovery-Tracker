@@ -59,4 +59,4 @@
 - [x] Add a GitHub Actions workflow that installs dependencies, runs the managed dev server, and executes Playwright in CI mode.
 - [x] Configure CI browser/runtime caching and upload Playwright traces/screenshots on failure.
 - [x] Document workflow triggers, required environment assumptions, and local CI-equivalent commands.
-- [ ] Run local CI-equivalent checks, push the workflow, trigger GitHub Actions, and verify the result.
+- [x] Run local CI-equivalent checks, push the workflow, trigger GitHub Actions, and verify the result.
