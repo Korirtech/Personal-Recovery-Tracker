@@ -27,3 +27,7 @@ The source-level review and live-browser QA runbook are recorded in `ACCESSIBILI
 ## GitHub synchronization
 
 The finalized source was synchronized to `https://github.com/Korirtech/Personal-Recovery-Tracker` on the `main` branch. The verified remote head is `ad9d2a6dae2d51b0c1cb976821c495cac6615674` (`chore: record GitHub synchronization`). Remote root verification confirmed `README.md`, `ARCHITECTURE.md`, `SECURITY.md`, `DEPLOYMENT.md`, `ACCESSIBILITY.md`, `todo.md`, and the `client`, `server`, `drizzle`, and `shared` project directories.
+
+## Analytics UX enhancement
+
+The analytics dashboard now uses staged skeleton animations with delayed card pulses while the private query is loading, an explicit retryable error panel when the initial request fails, and a compact updating indicator with reduced opacity during background refetches. Existing data remains visible during a refresh, and the last available result is preserved with an inline warning if a background refresh fails. The enhancement passed `pnpm check`, the full test suite with 18 tests, and the production build; the responsive empty state was visually verified at the desktop preview width.

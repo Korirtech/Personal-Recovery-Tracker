@@ -33,3 +33,7 @@
 - [x] Confirm the GitHub repository identity for Personal-Recovery-Tracker and preserve any existing remote history.
 - [x] Commit and synchronize the final RecoveryLog source to the selected GitHub repository.
 - [x] Verify the remote repository contents and record the synchronization result.
+
+# Analytics UX enhancement
+
+- [x] Add analytics loading animations, retryable error state, and transition-safe query behavior.
