@@ -15,7 +15,8 @@ export default defineConfig({
     ...devices["Desktop Chrome"],
     launchOptions: {
       executablePath:
-        process.env.PLAYWRIGHT_EXECUTABLE_PATH ?? "/usr/bin/chromium",
+        process.env.PLAYWRIGHT_EXECUTABLE_PATH ??
+        (process.env.CI ? undefined : "/usr/bin/chromium"),
     },
   },
   webServer: {

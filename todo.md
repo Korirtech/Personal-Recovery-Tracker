@@ -53,3 +53,10 @@
 - [x] Add an end-to-end Pro export flow covering entitlement UI, CSV download, PDF download, and download failure handling.
 - [x] Add Playwright scripts, browser configuration, CI-friendly startup, and test documentation without exposing real user data.
 - [x] Run Playwright plus the existing type, unit, and production checks; document environment limitations and checkpoint the result.
+
+# GitHub Actions Playwright CI enhancement
+
+- [x] Add a GitHub Actions workflow that installs dependencies, runs the managed dev server, and executes Playwright in CI mode.
+- [x] Configure CI browser/runtime caching and upload Playwright traces/screenshots on failure.
+- [x] Document workflow triggers, required environment assumptions, and local CI-equivalent commands.
+- [ ] Run local CI-equivalent checks, push the workflow, trigger GitHub Actions, and verify the result.

@@ -23,3 +23,15 @@ The configuration reuses the managed development server when it is already runni
 ## Extension guidance
 
 When adding another authenticated flow, extend the fixture router with the narrowest possible response for that procedure and keep the data synthetic and local to the test. Add a browser assertion for the visible outcome and a server-side authorization test for the procedure itself. Do not place OAuth cookies, real email addresses, production database identifiers, API keys, or generated wellness data in the repository.
+
+## GitHub Actions
+
+The workflow at `.github/workflows/playwright.yml` runs on pushes and pull requests targeting `main`, as well as manual dispatches. It installs the locked pnpm dependencies, restores the `~/.cache/ms-playwright` browser cache using an OS-plus-lockfile key, installs Chromium with its Linux dependencies, runs `pnpm check`, runs the Vitest suite, and then runs `pnpm test:e2e`. Playwright traces and screenshots are uploaded as a 14-day artifact when the job finishes, including failure runs.
+
+The local CI-equivalent command is:
+
+```bash
+CI=true pnpm check && CI=true pnpm test && CI=true pnpm test:e2e
+```
+
+The browser tests remain isolated request-fixture tests in CI. No repository secret, OAuth session, production database, or real user record is required by this workflow.
