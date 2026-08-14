@@ -48,3 +48,7 @@ The category thresholds are Excellent (80–100), Good (65–79), Moderate (50�
 RecoveryLog’s AI feature is informational only and includes a visible disclaimer. It uses de-identified summary statistics, not email or raw personal profile data. Reminder delivery and payment processing are deliberately unconfigured in this MVP; their secure lifecycle and data boundaries are implemented, but the application does not state that an email, push notification, payment, or Pro upgrade occurred when it has not.
 
 For detailed rollout instructions, see `DEPLOYMENT.md`.
+
+## Pro chart exports
+
+Pro users can export the 30-day recovery chart data as CSV or PDF from the Analytics page. The export procedures are protected on the server, re-check the user’s `pro` entitlement, query only that user’s local-date chart points, and return a browser download payload. Free users see the locked capability state and cannot invoke the procedures. The PDF is an informational table of dated recovery scores and includes the non-medical disclaimer; neither format includes other users’ records, profile details, or AI insight content.

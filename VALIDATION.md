@@ -31,3 +31,7 @@ The finalized source was synchronized to `https://github.com/Korirtech/Personal-
 ## Analytics UX enhancement
 
 The analytics dashboard now uses staged skeleton animations with delayed card pulses while the private query is loading, an explicit retryable error panel when the initial request fails, and a compact updating indicator with reduced opacity during background refetches. Existing data remains visible during a refresh, and the last available result is preserved with an inline warning if a background refresh fails. The enhancement passed `pnpm check`, the full test suite with 18 tests, and the production build; the responsive empty state was visually verified at the desktop preview width.
+
+## Pro chart export enhancement
+
+The Analytics page now presents CSV and PDF export controls only when the authenticated analytics response reports the Pro plan. Free users see a clear locked capability state. Server procedures re-check Pro entitlement and scope queries to the authenticated user’s 30-day local-date entries. CSV output and escaping, PDF `%PDF-` output, unauthenticated rejection, and UI export controls are covered by automated tests. The production build passed, and the locked Free-state analytics view was visually verified at the desktop preview width.

@@ -1,6 +1,7 @@
 import { COOKIE_NAME } from "@shared/const";
 import { checkinInputSchema } from "@shared/checkin";
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
@@ -28,7 +29,11 @@ import {
   generateValidatedInsight,
 } from "./recovery/insights";
 import { getRecoveryEntitlements } from "./recovery/entitlements";
-import { getDataExportStatus } from "./recovery/exports";
+import {
+  createChartCsv,
+  createChartPdf,
+  getDataExportStatus,
+} from "./recovery/exports";
 import {
   getLocalDateKey,
   isValidTimeZone,
@@ -194,7 +199,11 @@ export const appRouter = router({
           localDateToDatabaseDate(shiftLocalDate(localDate, -59)),
           localDateToDatabaseDate(localDate)
         );
-        return { localDate, ...buildAnalyticsProjection(entries, localDate) };
+        return {
+          localDate,
+          plan: profile?.plan ?? "free",
+          ...buildAnalyticsProjection(entries, localDate),
+        };
       }),
     }),
     insights: router({
@@ -264,6 +273,64 @@ export const appRouter = router({
         await ensureRecoveryAccount(ctx.user.id, ctx.user.name);
         const profile = await getRecoveryProfile(ctx.user.id);
         return getDataExportStatus(profile?.plan ?? "free");
+      }),
+      chartCsv: protectedProcedure.mutation(async ({ ctx }) => {
+        await ensureRecoveryAccount(ctx.user.id, ctx.user.name);
+        const profile = await getRecoveryProfile(ctx.user.id);
+        if ((profile?.plan ?? "free") !== "pro") {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "A Pro subscription is required for chart exports",
+          });
+        }
+        const timezone = profile?.timezone ?? "UTC";
+        const localDate = getLocalDateKey(timezone);
+        const entries = await getCheckinsInRange(
+          ctx.user.id,
+          localDateToDatabaseDate(shiftLocalDate(localDate, -29)),
+          localDateToDatabaseDate(localDate)
+        );
+        const points = entries
+          .map(entry => ({
+            date: new Date(entry.localDate).toISOString().slice(0, 10),
+            score: entry.recoveryScore,
+          }))
+          .reverse();
+        const csv = createChartCsv(points);
+        return {
+          fileName: `recoverylog-chart-${localDate}.csv`,
+          mimeType: "text/csv;charset=utf-8",
+          base64: Buffer.from(csv, "utf8").toString("base64"),
+        };
+      }),
+      chartPdf: protectedProcedure.mutation(async ({ ctx }) => {
+        await ensureRecoveryAccount(ctx.user.id, ctx.user.name);
+        const profile = await getRecoveryProfile(ctx.user.id);
+        if ((profile?.plan ?? "free") !== "pro") {
+          throw new TRPCError({
+            code: "FORBIDDEN",
+            message: "A Pro subscription is required for chart exports",
+          });
+        }
+        const timezone = profile?.timezone ?? "UTC";
+        const localDate = getLocalDateKey(timezone);
+        const entries = await getCheckinsInRange(
+          ctx.user.id,
+          localDateToDatabaseDate(shiftLocalDate(localDate, -29)),
+          localDateToDatabaseDate(localDate)
+        );
+        const points = entries
+          .map(entry => ({
+            date: new Date(entry.localDate).toISOString().slice(0, 10),
+            score: entry.recoveryScore,
+          }))
+          .reverse();
+        const pdf = await createChartPdf(points);
+        return {
+          fileName: `recoverylog-chart-${localDate}.pdf`,
+          mimeType: "application/pdf",
+          base64: Buffer.from(pdf).toString("base64"),
+        };
       }),
     }),
   }),

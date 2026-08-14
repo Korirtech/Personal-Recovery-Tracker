@@ -13,5 +13,11 @@ describe("RecoveryLog protected procedures", () => {
     await expect(caller.recovery.dashboard.get()).rejects.toMatchObject({
       code: "UNAUTHORIZED",
     });
+    await expect(caller.recovery.exports.chartCsv()).rejects.toMatchObject({
+      code: "UNAUTHORIZED",
+    });
+    await expect(caller.recovery.exports.chartPdf()).rejects.toMatchObject({
+      code: "UNAUTHORIZED",
+    });
   });
 });

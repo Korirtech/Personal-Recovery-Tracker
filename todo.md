@@ -37,3 +37,11 @@
 # Analytics UX enhancement
 
 - [x] Add analytics loading animations, retryable error state, and transition-safe query behavior.
+
+# Pro chart export enhancement
+
+- [x] Define the Pro-only export scope, formats, entitlement enforcement, and privacy-safe data contract.
+- [x] Implement authenticated CSV and PDF chart-data export generation from the user’s own analytics records.
+- [x] Add Pro export controls, locked Free state, loading state, and accessible download feedback to analytics.
+- [x] Add export authorization, CSV escaping, PDF output, and analytics UI regression coverage.
+- [x] Run type checks, tests, production build, visual verification, and save the export checkpoint.
