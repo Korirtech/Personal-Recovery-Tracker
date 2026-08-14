@@ -60,3 +60,9 @@
 - [x] Configure CI browser/runtime caching and upload Playwright traces/screenshots on failure.
 - [x] Document workflow triggers, required environment assumptions, and local CI-equivalent commands.
 - [x] Run local CI-equivalent checks, push the workflow, trigger GitHub Actions, and verify the result.
+
+# Render deployment manifest enhancement
+
+- [x] Define the Render service, health check, build/start commands, and required environment-variable contract.
+- [x] Add render.yaml and document Render database, OAuth, LLM, and secret configuration steps.
+- [ ] Validate render.yaml syntax and the production build, then checkpoint the deployment manifest.

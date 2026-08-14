@@ -19,3 +19,11 @@ The reminder callback is implemented at `/api/scheduled/recovery-reminder`, but 
 ## Verification scope
 
 Public pages, authenticated empty states, and key mobile layouts have been reviewed. Because the application must not invent wellness entries, populated charts, historical editing, Pro insight generation, and actual reminder delivery must be exercised with a real user account and real consented entries after configuration.
+
+## Render Blueprint deployment
+
+The repository now includes `render.yaml` for the requested Render deployment path. It defines one Node web service named `recoverylog`, uses `pnpm install --frozen-lockfile && pnpm build` followed by `pnpm start`, and checks the public root route for service health. Render supplies the runtime `PORT`; the application must not be configured with a hardcoded port.
+
+After creating the service from the Blueprint, provide the `sync: false` variables in the Render dashboard. Required values include `DATABASE_URL`, `JWT_SECRET`, `VITE_APP_ID`, `OAUTH_SERVER_URL`, `VITE_OAUTH_PORTAL_URL`, `OWNER_OPEN_ID`, `BUILT_IN_FORGE_API_URL`, `BUILT_IN_FORGE_API_KEY`, `VITE_FRONTEND_FORGE_API_URL`, `VITE_FRONTEND_FORGE_API_KEY`, `VITE_ANALYTICS_ENDPOINT`, `VITE_ANALYTICS_WEBSITE_ID`, and `VITE_APP_LOGO`. Never commit these values to `render.yaml` or an `.env` file.
+
+The Render service needs a compatible managed MySQL/TiDB connection in `DATABASE_URL`; `render.yaml` intentionally does not provision or migrate a database. Apply reviewed Drizzle migrations through the database workflow before relying on the service. Update the Manus OAuth application’s production callback and allowed-origin configuration to the final Render service URL before testing sign-in. The managed Manus hosting path remains the default and does not require this Blueprint.
